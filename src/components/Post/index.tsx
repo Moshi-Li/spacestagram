@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import {
-  ShareIosMinor,
-  ThumbsUpMinor,
-  PromoteMinor,
-} from "@shopify/polaris-icons";
+import { useAlert } from "react-alert";
+import { ThumbsUpMinor, PromoteMinor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
 import "./index.scss";
 
@@ -13,9 +10,19 @@ interface PostPropsI {
   title: string;
   date: string;
   explanation: string;
+  copyright: string;
 }
 
-const Post = ({ url, hdurl, title, date, explanation }: PostPropsI) => {
+const Post = ({
+  url,
+  hdurl,
+  title,
+  date,
+  explanation,
+  copyright,
+}: PostPropsI) => {
+  const alterClient = useAlert();
+
   const [likeBtnColor, setLikeBtnColor] = useState<"primary" | "critical">(
     "primary"
   );
@@ -23,6 +30,16 @@ const Post = ({ url, hdurl, title, date, explanation }: PostPropsI) => {
     "primary"
   );
   const [fullExplanation, setFullExplanation] = useState<boolean>(false);
+
+  const shareClick = () => {
+    navigator.clipboard
+      .writeText(
+        `${window.location.origin + window.location.pathname}?share=${date}`
+      )
+      .then(() => {
+        alterClient.success("Share link copied to clipboard");
+      });
+  };
 
   return (
     <div className="post">
@@ -47,12 +64,13 @@ const Post = ({ url, hdurl, title, date, explanation }: PostPropsI) => {
           title="Share"
           onMouseOver={() => setShareBtnColor("highlight")}
           onMouseLeave={() => setShareBtnColor("primary")}
+          onClick={() => shareClick()}
         >
           <Icon source={PromoteMinor} color={shareBtnColor} />
         </div>
       </div>
       <div className="post__title">
-        <p>{title}</p>
+        <p>{title}</p>&nbsp;by&nbsp;<span>{copyright}</span>
       </div>
       <div className="post__date">
         <p>{date}</p>

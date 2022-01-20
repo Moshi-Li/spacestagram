@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { BiLoaderCircle } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
+
 import { ImageI } from "../../actions/ImageActionTypes";
-import { GetImageRadom } from "../../actions/ImageActions";
 import { RootStoreI } from "../../Store";
 
 import Post from "../Post";
@@ -21,7 +21,7 @@ const Home = () => {
           <BiLoaderCircle></BiLoaderCircle>
         </div>
       ) : imageList.length === 0 ? (
-        <p>Empty</p>
+        <p>TODO Empty</p>
       ) : (
         <React.Fragment>
           {imageList.map((imageProps: ImageI, index) => (

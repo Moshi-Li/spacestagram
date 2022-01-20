@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GetImageRadom } from "./actions/ImageActions";
+import { getImageRadom, getImageByDate } from "./actions/ImageActions";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -13,10 +13,17 @@ function App() {
   const [scrollDirection, setScrollDirection] = useState("UP");
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams.get("share"));
+    const dateToday = new Date().toISOString().split("T")[0];
+    const dateShare = new URLSearchParams(window.location.search).get("share");
 
-    dispatch(GetImageRadom());
+    dispatch(getImageRadom());
+    if (dateShare !== null && dateShare !== dateToday) {
+      Promise.resolve()
+        .then(() => dispatch(getImageByDate(dateToday)))
+        .then(() => dispatch(getImageByDate(dateShare)));
+    } else {
+      Promise.resolve().then(() => dispatch(getImageByDate(dateToday)));
+    }
   }, [dispatch]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -29,7 +36,7 @@ function App() {
       e.currentTarget.scrollTop + e.currentTarget.clientHeight >=
       e.currentTarget.scrollHeight
     ) {
-      dispatch(GetImageRadom());
+      dispatch(getImageRadom(2));
     }
   };
 

@@ -6,9 +6,15 @@ import {
   IMAGE_FETCH_STREAM_LOADING,
   IMAGE_FETCH_STREAM_SUCCESS,
   IMAGE_FETCH_STREAM_FAIL,
+  IMAGE_FETCH_DATE_SUCCESS,
+  IMAGE_FETCH_DATE_FAIL,
 } from "./ImageActionTypes";
 
-export const GetImageRadom =
+const defaultParam = {
+  api_key: "4egLeim9H2planSVbobmSarfrCgcebdzvcxcAWaS",
+};
+
+export const getImageRadom =
   (count = 5) =>
   async (dispatch: Dispatch<ImageDispatchTypeI>) => {
     try {
@@ -16,10 +22,10 @@ export const GetImageRadom =
         type: IMAGE_FETCH_STREAM_LOADING,
       });
 
-      const res = await axios.get(
-        "https://api.nasa.gov/planetary/apod?count=3&api_key=4egLeim9H2planSVbobmSarfrCgcebdzvcxcAWaS"
-      );
-      console.log(res.data);
+      const res = await axios.get("https://api.nasa.gov/planetary/apod", {
+        params: { ...defaultParam, count: count },
+      });
+
       dispatch({
         type: IMAGE_FETCH_STREAM_SUCCESS,
         payload: CamelConverter(res.data),
@@ -27,6 +33,23 @@ export const GetImageRadom =
     } catch (e) {
       dispatch({
         type: IMAGE_FETCH_STREAM_FAIL,
+      });
+    }
+  };
+
+export const getImageByDate =
+  (date: string) => async (dispatch: Dispatch<ImageDispatchTypeI>) => {
+    try {
+      const res = await axios.get("https://api.nasa.gov/planetary/apod", {
+        params: { ...defaultParam, date },
+      });
+      dispatch({
+        type: IMAGE_FETCH_DATE_SUCCESS,
+        payload: CamelConverter(res.data),
+      });
+    } catch (e) {
+      dispatch({
+        type: IMAGE_FETCH_DATE_FAIL,
       });
     }
   };

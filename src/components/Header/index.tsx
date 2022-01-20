@@ -18,7 +18,12 @@ const Header = ({ scrollDirection }: HeaderProps) => {
           className="header__content__logo"
           src={Logo}
           alt="Moshi Li"
-          onClick={() => window.open(window.location.origin, "_self")}
+          onClick={() =>
+            window.open(
+              window.location.origin + window.location.pathname,
+              "_self"
+            )
+          }
         ></img>
         <div></div>
       </div>
