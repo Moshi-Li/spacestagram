@@ -1,12 +1,19 @@
 import React from "react";
-import "./index.scss";
+import { AiOutlineGithub } from "react-icons/ai";
 import Logo from "./Icon.png";
+
+import "./index.scss";
 
 interface HeaderProps {
   scrollDirection: string;
 }
 
+const links = {
+  ml: "https://github.com/MoshiLi95/spacestagram",
+};
+
 const Header = ({ scrollDirection }: HeaderProps) => {
+  const iconClick = (link: string) => window.open(link, "_blank");
   return (
     <div
       className={`header header--${
@@ -25,7 +32,13 @@ const Header = ({ scrollDirection }: HeaderProps) => {
             )
           }
         ></img>
-        <div></div>
+        <div
+          className="header__content__credit"
+          onClick={(e) => iconClick(links.ml)}
+        >
+          <p>{`Built & Desiagned by Moshi Li`} &nbsp; </p>
+          <AiOutlineGithub></AiOutlineGithub>
+        </div>
       </div>
     </div>
   );
