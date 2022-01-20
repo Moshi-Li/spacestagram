@@ -1,5 +1,9 @@
 .post {
   width: 600px;
+  @media (max-width: 500px) {
+    width: 100%;
+    border: none;
+  }
   margin-bottom: 20px;
   color: #f8f8f2;
   background-color: #44475a;
@@ -38,6 +42,22 @@
     img {
       width: 100%;
       min-height: 100px;
+    }
+    .iframe {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      .responsive-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
     }
   }
 
@@ -83,10 +103,18 @@
 
   &__explanation {
     padding: 10px;
+    @media (max-width: 500px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
     &__full {
     }
     &__brief {
       width: 550px;
+      @media (max-width: 500px) {
+        width: calc(100vw - 10px);
+        box-sizing: border-box;
+      }
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

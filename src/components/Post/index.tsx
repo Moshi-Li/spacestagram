@@ -74,14 +74,15 @@ const Post = ({
           ></img>
         )}
         {mediaType === "video" && (
-          <iframe
-            title={`vedio for ${date}`}
-            height={400}
-            width={600}
-            src={url}
-            allowFullScreen
-            frameBorder={0}
-          ></iframe>
+          <div className="iframe">
+            <iframe
+              className="responsive-iframe"
+              title={`vedio for ${date}`}
+              src={url}
+              allowFullScreen
+              frameBorder={0}
+            ></iframe>
+          </div>
         )}
       </div>
       <div className="post__actions">
