@@ -10,7 +10,7 @@ interface PostPropsI {
   title: string;
   date: string;
   explanation: string;
-  copyright: string;
+  copyright: string | undefined;
 }
 
 const Post = ({
@@ -23,8 +23,11 @@ const Post = ({
 }: PostPropsI) => {
   const alterClient = useAlert();
 
+  const [imageLiked, setImageLiked] = useState(
+    !!localStorage.getItem(date)?.length
+  );
   const [likeBtnColor, setLikeBtnColor] = useState<"primary" | "critical">(
-    "primary"
+    !!localStorage.getItem(date)?.length ? "critical" : "primary"
   );
   const [shareBtnColor, setShareBtnColor] = useState<"primary" | "highlight">(
     "primary"
@@ -41,6 +44,15 @@ const Post = ({
       });
   };
 
+  const likeImage = () => {
+    localStorage.setItem(date, "t");
+    setImageLiked(true);
+  };
+  const dislikeImage = () => {
+    localStorage.removeItem(date);
+    setImageLiked(false);
+  };
+
   return (
     <div className="post">
       <div className="post__img">
@@ -55,7 +67,16 @@ const Post = ({
           className="post__actions__icon"
           title="Like"
           onMouseOver={() => setLikeBtnColor("critical")}
-          onMouseLeave={() => setLikeBtnColor("primary")}
+          onMouseLeave={() => (imageLiked ? null : setLikeBtnColor("primary"))}
+          onClick={() => {
+            if (imageLiked) {
+              dislikeImage();
+              setLikeBtnColor("primary");
+            } else {
+              likeImage();
+              setLikeBtnColor("critical");
+            }
+          }}
         >
           <Icon source={ThumbsUpMinor} color={likeBtnColor} />
         </div>
@@ -70,7 +91,12 @@ const Post = ({
         </div>
       </div>
       <div className="post__title">
-        <p>{title}</p>&nbsp;by&nbsp;<span>{copyright}</span>
+        <p>{title}</p>
+        {copyright === undefined ? null : (
+          <React.Fragment>
+            &nbsp;by&nbsp;<span>{copyright}</span>
+          </React.Fragment>
+        )}
       </div>
       <div className="post__date">
         <p>{date}</p>
