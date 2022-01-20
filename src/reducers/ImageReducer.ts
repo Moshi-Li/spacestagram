@@ -1,9 +1,9 @@
 import {
   ImageI,
   ImageDispatchTypeI,
-  IMAGE_FETCH_LOADING,
-  IMAGE_FETCH_SUCCESS,
-  IMAGE_FETCH_FAIL,
+  IMAGE_FETCH_STREAM_LOADING,
+  IMAGE_FETCH_STREAM_SUCCESS,
+  IMAGE_FETCH_STREAM_FAIL,
 } from "../actions/ImageActionTypes";
 
 interface ImageStateI {
@@ -21,11 +21,11 @@ const imageReducer = (
   action: ImageDispatchTypeI
 ): ImageStateI => {
   switch (action.type) {
-    case IMAGE_FETCH_LOADING:
+    case IMAGE_FETCH_STREAM_LOADING:
       return { imageFetching: true, imageList: state.imageList };
-    case IMAGE_FETCH_FAIL:
+    case IMAGE_FETCH_STREAM_FAIL:
       return { imageFetching: false, imageList: state.imageList };
-    case IMAGE_FETCH_SUCCESS:
+    case IMAGE_FETCH_STREAM_SUCCESS:
       return {
         imageFetching: false,
         imageList: state.imageList.concat(action.payload),

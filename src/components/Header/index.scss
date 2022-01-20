@@ -1,0 +1,54 @@
+.header {
+  display: flex;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  height: 80px;
+  width: calc(100% - 10px);
+  z-index: 100;
+
+  color: #f8f8f2;
+  background-color: #282a36;
+  box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+
+  box-sizing: border-box;
+
+  &__content {
+    position: relative;
+    height: 100%;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    &__logo {
+      height: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+.header--fade-in {
+  animation: fade-in 1s;
+}
+.header--fade-out {
+  animation: fade-out 0.25s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+@keyframes fade-out {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+    display: none;
+  }
+}

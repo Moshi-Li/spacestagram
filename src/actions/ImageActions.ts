@@ -1,10 +1,11 @@
 import { Dispatch } from "redux";
+import CamelConverter from "camelcase-keys";
 import axios from "axios";
 import {
   ImageDispatchTypeI,
-  IMAGE_FETCH_LOADING,
-  IMAGE_FETCH_SUCCESS,
-  IMAGE_FETCH_FAIL,
+  IMAGE_FETCH_STREAM_LOADING,
+  IMAGE_FETCH_STREAM_SUCCESS,
+  IMAGE_FETCH_STREAM_FAIL,
 } from "./ImageActionTypes";
 
 export const GetImageRadom =
@@ -12,7 +13,7 @@ export const GetImageRadom =
   async (dispatch: Dispatch<ImageDispatchTypeI>) => {
     try {
       dispatch({
-        type: IMAGE_FETCH_LOADING,
+        type: IMAGE_FETCH_STREAM_LOADING,
       });
 
       const res = await axios.get(
@@ -20,12 +21,12 @@ export const GetImageRadom =
       );
       console.log(res.data);
       dispatch({
-        type: IMAGE_FETCH_SUCCESS,
-        payload: [],
+        type: IMAGE_FETCH_STREAM_SUCCESS,
+        payload: CamelConverter(res.data),
       });
     } catch (e) {
       dispatch({
-        type: IMAGE_FETCH_FAIL,
+        type: IMAGE_FETCH_STREAM_FAIL,
       });
     }
   };
