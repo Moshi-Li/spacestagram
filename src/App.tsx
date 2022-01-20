@@ -1,26 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStoreI } from "./Store";
+import { GetImageRadom } from "./actions/ImageActions";
 import { Button } from "@shopify/polaris";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  const imageStore = useSelector((store: RootStoreI) => store.image);
+  useEffect(() => {
+    dispatch(GetImageRadom());
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button>Hello</Button>
-      </header>
+      {imageStore.imageFetching ? (
+        <p>Loading</p>
+      ) : imageStore.imageList.length === 0 ? (
+        <p>Empty</p>
+      ) : (
+        <p>has</p>
+      )}
     </div>
   );
 }
