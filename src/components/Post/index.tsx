@@ -11,6 +11,7 @@ interface PostPropsI {
   date: string;
   explanation: string;
   copyright: string | undefined;
+  mediaType: string;
 }
 
 const Post = ({
@@ -20,11 +21,12 @@ const Post = ({
   date,
   explanation,
   copyright,
+  mediaType,
 }: PostPropsI) => {
   const alterClient = useAlert();
 
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageLiked, setImageLiked] = useState(
+  const [sourceLoaded, setSourceLoaded] = useState(false);
+  const [postLiked, setPostLiked] = useState(
     !!localStorage.getItem(date)?.length
   );
   const [likeBtnColor, setLikeBtnColor] = useState<"primary" | "critical">(
@@ -47,37 +49,49 @@ const Post = ({
 
   const likeImage = () => {
     localStorage.setItem(date, "t");
-    setImageLiked(true);
+    setPostLiked(true);
   };
   const dislikeImage = () => {
     localStorage.removeItem(date);
-    setImageLiked(false);
+    setPostLiked(false);
   };
 
   return (
     <div className="post">
       <div className="post__img">
-        <img
-          src={hdurl}
-          style={{
-            backgroundImage: `url(${url})`,
-            filter: `${imageLoaded ? "none" : "blur(5px)"}`,
-          }}
-          onLoad={() => {
-            console.log(`${date} loaded`);
-            setImageLoaded(true);
-          }}
-          alt={title}
-        ></img>
+        {mediaType === "image" && (
+          <img
+            src={hdurl}
+            style={{
+              backgroundImage: `url(${url})`,
+              filter: `${sourceLoaded ? "none" : "blur(5px)"}`,
+            }}
+            onLoad={() => {
+              setSourceLoaded(true);
+            }}
+            onError={() => setSourceLoaded(true)}
+            alt={title}
+          ></img>
+        )}
+        {mediaType === "video" && (
+          <iframe
+            title={`vedio for ${date}`}
+            height={400}
+            width={600}
+            src={url}
+            allowFullScreen
+            frameBorder={0}
+          ></iframe>
+        )}
       </div>
       <div className="post__actions">
         <div
           className="post__actions__icon"
           title="Like"
           onMouseOver={() => setLikeBtnColor("critical")}
-          onMouseLeave={() => (imageLiked ? null : setLikeBtnColor("primary"))}
+          onMouseLeave={() => (postLiked ? null : setLikeBtnColor("primary"))}
           onClick={() => {
-            if (imageLiked) {
+            if (postLiked) {
               dislikeImage();
               setLikeBtnColor("primary");
             } else {
