@@ -36,7 +36,7 @@ const Header = ({ scrollDirection }: HeaderProps) => {
           className="header__content__credit"
           onClick={(e) => iconClick(links.ml)}
         >
-          <p>{`Built & Desiagned by Moshi Li`} &nbsp; </p>
+          <p>{`Built & Designed by Moshi Li`} &nbsp; </p>
           <AiOutlineGithub></AiOutlineGithub>
         </div>
       </div>
