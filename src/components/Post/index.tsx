@@ -23,6 +23,7 @@ const Post = ({
 }: PostPropsI) => {
   const alterClient = useAlert();
 
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [imageLiked, setImageLiked] = useState(
     !!localStorage.getItem(date)?.length
   );
@@ -58,7 +59,14 @@ const Post = ({
       <div className="post__img">
         <img
           src={hdurl}
-          style={{ backgroundImage: `url(${url})` }}
+          style={{
+            backgroundImage: `url(${url})`,
+            filter: `${imageLoaded ? "none" : "blur(5px)"}`,
+          }}
+          onLoad={() => {
+            console.log(`${date} loaded`);
+            setImageLoaded(true);
+          }}
           alt={title}
         ></img>
       </div>
