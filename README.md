@@ -1,25 +1,24 @@
-# Live Demo
+## [Spacestagram](https://moshili95.github.io/spacestagram/)
 
-[Demo](https://moshili95.github.io/spacestagram).
+**[Demo](https://moshili95.github.io/spacestagram/)**
+A image browsing website using **[NASA API](https://api.nasa.gov)**.
 
-# Portfolio
+### Installation & Start
 
-[Portfolio](https://li-moshi.com)
+```
+yarn install
+```
 
-# Tech
+```
+yarn start
+```
 
-React, Redux, Typescript, Sass, gh-pages
+### Build & Deploy to Github Pages
 
-# Start
+```
+yarn build
+```
 
-### `yarn install`
-
-### `yarn start`
-
-# Deploy
-
-### `yarn run build`
-
-### `yarn run deploy`
-
-(change the homepage in package.json)
+```
+yarn run deploy
+```
