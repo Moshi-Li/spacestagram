@@ -2,7 +2,7 @@
 
 **[Demo](https://moshili95.github.io/spacestagram/)**
 
-A image browsing website using **[NASA API](https://api.nasa.gov)**.
+A image browsing website using **[NASA API](https://api.nasa.gov/#apod)**.
 
 ### Installation & Start
 
