@@ -1,6 +1,8 @@
+import React from "react";
 import { Dispatch } from "redux";
 import CamelConverter from "camelcase-keys";
-import axios from "axios";
+import { toast as toastClient } from "react-toastify";
+import axios, { AxiosError } from "axios";
 import {
   ImageDispatchTypeI,
   IMAGE_FETCH_STREAM_LOADING,
@@ -31,6 +33,7 @@ export const getImageRadom =
         payload: CamelConverter(res.data),
       });
     } catch (e) {
+      toastClient.error("Fetching Failed");
       dispatch({
         type: IMAGE_FETCH_STREAM_FAIL,
       });
@@ -48,6 +51,7 @@ export const getImageByDate =
         payload: CamelConverter(res.data),
       });
     } catch (e) {
+      toastClient.error("Fetching Failed");
       dispatch({
         type: IMAGE_FETCH_DATE_FAIL,
       });

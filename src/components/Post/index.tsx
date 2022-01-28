@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAlert } from "react-alert";
+import { toast as toastClient } from "react-toastify";
 import { ThumbsUpMinor, PromoteMinor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
 import "./index.scss";
@@ -23,8 +23,6 @@ const Post = ({
   copyright,
   mediaType,
 }: PostPropsI) => {
-  const alterClient = useAlert();
-
   const [sourceLoaded, setSourceLoaded] = useState(false);
   const [postLiked, setPostLiked] = useState(
     !!localStorage.getItem(date)?.length
@@ -43,7 +41,7 @@ const Post = ({
         `${window.location.origin + window.location.pathname}?share=${date}`
       )
       .then(() => {
-        alterClient.success("Share link copied to clipboard");
+        toastClient.success("Share link copied to clipboard");
       });
   };
 

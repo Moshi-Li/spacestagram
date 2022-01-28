@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getImageRadom, getImageByDate } from "./actions/ImageActions";
+import { RootStoreI } from "./Store";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -9,6 +10,7 @@ import "./App.scss";
 
 function App() {
   const dispatch = useDispatch();
+  const { imageFetching } = useSelector((store: RootStoreI) => store.image);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("UP");
 
@@ -34,7 +36,8 @@ function App() {
 
     if (
       e.currentTarget.scrollTop + e.currentTarget.clientHeight >=
-      e.currentTarget.scrollHeight
+        e.currentTarget.scrollHeight &&
+      !imageFetching
     ) {
       dispatch(getImageRadom(2));
     }
