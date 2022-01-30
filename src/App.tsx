@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast as toastClient } from "react-toastify";
+
 import { getImageRadom, getImageByDate } from "./actions/ImageActions";
 import { RootStoreI } from "./Store";
 
@@ -10,21 +12,21 @@ import "./App.scss";
 
 function App() {
   const dispatch = useDispatch();
-  const { imageFetching } = useSelector((store: RootStoreI) => store.image);
+  const { imageStreamFetching } = useSelector(
+    (store: RootStoreI) => store.image
+  );
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("UP");
 
   useEffect(() => {
-    const dateToday = new Date().toISOString().split("T")[0];
+    toastClient.info(
+      "NASA API is not reliable in recently days. Images might not be able to load."
+    );
+
     const dateShare = new URLSearchParams(window.location.search).get("share");
 
-    dispatch(getImageRadom());
-    if (dateShare !== null && dateShare !== dateToday) {
-      Promise.resolve()
-        .then(() => dispatch(getImageByDate(dateToday)))
-        .then(() => dispatch(getImageByDate(dateShare)));
-    } else {
-      Promise.resolve().then(() => dispatch(getImageByDate(dateToday)));
+    if (dateShare !== null) {
+      dispatch(getImageByDate(dateShare));
     }
   }, [dispatch]);
 
@@ -37,7 +39,7 @@ function App() {
     if (
       e.currentTarget.scrollTop + e.currentTarget.clientHeight >=
         e.currentTarget.scrollHeight &&
-      !imageFetching
+      !imageStreamFetching
     ) {
       dispatch(getImageRadom(2));
     }
@@ -46,9 +48,8 @@ function App() {
   return (
     <div className="app" onScroll={handleScroll}>
       <Header scrollDirection={scrollDirection}></Header>
-      <div className="content">
-        <Home></Home>
-      </div>
+
+      <Home></Home>
     </div>
   );
 }

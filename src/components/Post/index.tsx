@@ -23,6 +23,7 @@ const Post = ({
   copyright,
   mediaType,
 }: PostPropsI) => {
+  const [imageSrc, setImageSrc] = useState(hdurl);
   const [sourceLoaded, setSourceLoaded] = useState(false);
   const [postLiked, setPostLiked] = useState(
     !!localStorage.getItem(date)?.length
@@ -59,7 +60,7 @@ const Post = ({
       <div className="post__img">
         {mediaType === "image" && (
           <img
-            src={hdurl}
+            src={imageSrc}
             style={{
               backgroundImage: `url(${url})`,
               filter: `${sourceLoaded ? "none" : "blur(5px)"}`,
@@ -67,7 +68,11 @@ const Post = ({
             onLoad={() => {
               setSourceLoaded(true);
             }}
-            onError={() => setSourceLoaded(true)}
+            onError={() => {
+              if (imageSrc === hdurl) setImageSrc(url);
+              console.log(`error loading ${title}`);
+              setSourceLoaded(true);
+            }}
             alt={title}
           ></img>
         )}

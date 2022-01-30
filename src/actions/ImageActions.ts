@@ -10,6 +10,9 @@ import {
   IMAGE_FETCH_STREAM_FAIL,
   IMAGE_FETCH_DATE_SUCCESS,
   IMAGE_FETCH_DATE_FAIL,
+  IMAGE_FETCH_TODAY_SUCCESS,
+  IMAGE_FETCH_TODAY_FAIL,
+  IMAGE_FETCH_TODAY_LOADING,
 } from "./ImageActionTypes";
 
 const defaultParam = {
@@ -17,7 +20,7 @@ const defaultParam = {
 };
 
 export const getImageRadom =
-  (count = 5) =>
+  (count = 3) =>
   async (dispatch: Dispatch<ImageDispatchTypeI>) => {
     try {
       dispatch({
@@ -33,7 +36,7 @@ export const getImageRadom =
         payload: CamelConverter(res.data),
       });
     } catch (e) {
-      toastClient.error("Fetching Failed");
+      toastClient.error("Fail to get Radom Images");
       dispatch({
         type: IMAGE_FETCH_STREAM_FAIL,
       });
@@ -55,5 +58,27 @@ export const getImageByDate =
       dispatch({
         type: IMAGE_FETCH_DATE_FAIL,
       });
+    }
+  };
+
+export const getImageToday =
+  () => async (dispatch: Dispatch<ImageDispatchTypeI>) => {
+    try {
+      dispatch({
+        type: IMAGE_FETCH_TODAY_LOADING,
+      });
+      const date = new Date().toISOString().split("T")[0];
+      const res = await axios.get("https://api.nasa.gov/planetary/apod", {
+        params: { ...defaultParam, date },
+      });
+      dispatch({
+        type: IMAGE_FETCH_TODAY_SUCCESS,
+        payload: CamelConverter(res.data),
+      });
+    } catch (e) {
+      dispatch({
+        type: IMAGE_FETCH_TODAY_FAIL,
+      });
+      toastClient.error("Fail to get Image of the Day");
     }
   };

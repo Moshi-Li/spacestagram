@@ -5,6 +5,10 @@ export const IMAGE_FETCH_STREAM_FAIL = "IMAGE_FETCH_STREAM_FAIL";
 export const IMAGE_FETCH_DATE_SUCCESS = "IMAGE_FETCH_DATE_SUCCESS";
 export const IMAGE_FETCH_DATE_FAIL = "IMAGE_FETCH_DATE_FAIL";
 
+export const IMAGE_FETCH_TODAY_SUCCESS = "IMAGE_FETCH_TODAY_SUCCESS";
+export const IMAGE_FETCH_TODAY_FAIL = "IMAGE_FETCH_TODAY_FAIL";
+export const IMAGE_FETCH_TODAY_LOADING = "IMAGE_FETCH_TODAY_LOADING";
+
 export const IMAGE_LIKE = "IMAGE_LIKE";
 export const IMAGE_DISLIKE = "IMAGE_DISLIKE";
 
@@ -41,6 +45,17 @@ interface ImageFetchShareFail {
   type: typeof IMAGE_FETCH_DATE_FAIL;
 }
 
+interface ImageFetchTodaySuccess {
+  type: typeof IMAGE_FETCH_TODAY_SUCCESS;
+  payload: ImageI;
+}
+interface ImageFetchTodayFail {
+  type: typeof IMAGE_FETCH_TODAY_FAIL;
+}
+interface ImageFetchTodayLoading {
+  type: typeof IMAGE_FETCH_TODAY_LOADING;
+}
+
 interface ImageLike {
   type: typeof IMAGE_LIKE;
   payload: string;
@@ -56,5 +71,8 @@ export type ImageDispatchTypeI =
   | ImageFetchStreamSuccess
   | ImageFetchShareSuccess
   | ImageFetchShareFail
+  | ImageFetchTodaySuccess
+  | ImageFetchTodayFail
+  | ImageFetchTodayLoading
   | ImageLike
   | ImageDislike;

@@ -4,18 +4,27 @@ import {
   IMAGE_FETCH_STREAM_LOADING,
   IMAGE_FETCH_STREAM_SUCCESS,
   IMAGE_FETCH_STREAM_FAIL,
+  IMAGE_FETCH_TODAY_SUCCESS,
+  IMAGE_FETCH_TODAY_FAIL,
+  IMAGE_FETCH_TODAY_LOADING,
   IMAGE_FETCH_DATE_SUCCESS,
   IMAGE_FETCH_DATE_FAIL,
 } from "../actions/ImageActionTypes";
 
 interface ImageStateI {
   imageList: ImageI[];
-  imageFetching: boolean;
+  imageToday: ImageI | undefined;
+  imageStreamFetching: boolean;
+  imageTodayFetching: boolean;
+  imageShareFetching: boolean;
 }
 
 const imageDefaultState: ImageStateI = {
   imageList: [],
-  imageFetching: false,
+  imageToday: undefined,
+  imageStreamFetching: false,
+  imageTodayFetching: false,
+  imageShareFetching: false,
 };
 
 const imageReducer = (
@@ -24,20 +33,33 @@ const imageReducer = (
 ): ImageStateI => {
   switch (action.type) {
     case IMAGE_FETCH_STREAM_LOADING:
-      return { imageFetching: true, imageList: state.imageList };
+      return { ...state, imageStreamFetching: true };
     case IMAGE_FETCH_STREAM_FAIL:
-      return { imageFetching: false, imageList: state.imageList };
+      return { ...state, imageStreamFetching: false };
     case IMAGE_FETCH_STREAM_SUCCESS:
       return {
-        imageFetching: false,
+        ...state,
+        imageStreamFetching: false,
         imageList: state.imageList.concat(action.payload),
       };
 
     case IMAGE_FETCH_DATE_SUCCESS:
       return {
-        imageFetching: state.imageFetching,
+        ...state,
+        imageStreamFetching: state.imageStreamFetching,
         imageList: [action.payload].concat(state.imageList),
       };
+
+    case IMAGE_FETCH_TODAY_LOADING:
+      return { ...state, imageTodayFetching: true };
+    case IMAGE_FETCH_TODAY_SUCCESS:
+      return {
+        ...state,
+        imageTodayFetching: false,
+        imageToday: action.payload,
+      };
+    case IMAGE_FETCH_TODAY_FAIL:
+      return { ...state, imageTodayFetching: false, imageToday: undefined };
 
     case IMAGE_FETCH_DATE_FAIL:
     default:
