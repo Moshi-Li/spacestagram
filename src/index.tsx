@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as StoreProvider } from "react-redux";
-import { AppProvider } from "@shopify/polaris";
+
 import { ToastContainer } from "react-toastify";
 
 import store from "./Store";
-import enTranslations from "@shopify/polaris/locales/en.json";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,20 +12,18 @@ import App from "./App";
 
 ReactDOM.render(
   <StoreProvider store={store}>
-    <AppProvider i18n={enTranslations}>
-      <App />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </AppProvider>
+    <App />
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
   </StoreProvider>,
   document.getElementById("root")
 );

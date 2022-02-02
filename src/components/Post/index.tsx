@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsShare, BsShareFill } from "react-icons/bs";
 import { toast as toastClient } from "react-toastify";
-import { ThumbsUpMinor, PromoteMinor } from "@shopify/polaris-icons";
-import { Icon } from "@shopify/polaris";
+
 import "./index.scss";
 
 interface PostPropsI {
@@ -31,9 +32,7 @@ const Post = ({
   const [likeBtnColor, setLikeBtnColor] = useState<"primary" | "critical">(
     !!localStorage.getItem(date)?.length ? "critical" : "primary"
   );
-  const [shareBtnColor, setShareBtnColor] = useState<"primary" | "highlight">(
-    "primary"
-  );
+  const [shareBtnHover, setShareBtnHover] = useState<boolean>(false);
   const [fullExplanation, setFullExplanation] = useState<boolean>(false);
 
   const shareClick = () => {
@@ -92,28 +91,26 @@ const Post = ({
         <div
           className="post__actions__icon"
           title="Like"
-          onMouseOver={() => setLikeBtnColor("critical")}
-          onMouseLeave={() => (postLiked ? null : setLikeBtnColor("primary"))}
           onClick={() => {
             if (postLiked) {
               dislikeImage();
-              setLikeBtnColor("primary");
             } else {
               likeImage();
-              setLikeBtnColor("critical");
             }
           }}
         >
-          <Icon source={ThumbsUpMinor} color={likeBtnColor} />
+          {postLiked && <AiFillHeart></AiFillHeart>}
+          {!postLiked && <AiOutlineHeart></AiOutlineHeart>}
         </div>
         <div
           className="post__actions__icon"
           title="Share"
-          onMouseOver={() => setShareBtnColor("highlight")}
-          onMouseLeave={() => setShareBtnColor("primary")}
+          onMouseOver={() => setShareBtnHover(true)}
+          onMouseLeave={() => setShareBtnHover(false)}
           onClick={() => shareClick()}
         >
-          <Icon source={PromoteMinor} color={shareBtnColor} />
+          {shareBtnHover && <BsShareFill></BsShareFill>}
+          {!shareBtnHover && <BsShare></BsShare>}
         </div>
       </div>
       <div className="post__title">
