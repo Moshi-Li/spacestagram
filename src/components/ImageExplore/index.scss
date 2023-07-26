@@ -1,0 +1,78 @@
+.explore--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+
+  height: 100%;
+  overflow: auto;
+  padding-top: 20px;
+  align-items: center;
+
+  & div:first-child {
+    width: 100%;
+  }
+
+  .infinite--scroll {
+    overflow-y: hidden;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+
+    .image--block {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      width: 100%;
+      max-width: 1000px;
+
+      column-gap: 4px;
+      margin-bottom: 4px;
+      .image--container {
+        position: relative;
+        width: 33%;
+
+        .image--cover {
+          background-color: rgba(0, 0, 0, 0.3);
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 100%;
+
+          p {
+            margin: 0;
+            height: calc(100% - 10px);
+            width: 100%;
+            overflow: hidden;
+            text-align: left;
+          }
+        }
+        img {
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .loader--icon {
+      display: flex;
+      animation: rotation 0.7s infinite linear;
+    }
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

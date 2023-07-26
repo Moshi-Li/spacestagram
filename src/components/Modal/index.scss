@@ -1,0 +1,110 @@
+.modal--backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+
+  .modal--container {
+    width: 80%;
+    max-width: 2500px;
+    border: 1px solid var(--color--border);
+    background-color: var(--color-background);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+
+    .img--section {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        object-fit: contain;
+        display: flex;
+      }
+    }
+
+    .comment--section {
+      border-left: 1px solid var(--color--border);
+
+      display: grid;
+      min-height: 0;
+      grid-template-rows: 1fr min-content min-content;
+
+      min-width: 20vw;
+
+      .comment--list {
+        padding: 10px;
+        max-width: 20vw;
+        overflow: auto;
+        p {
+          span {
+            color: var(--color-primary-text);
+            font-size: var(--system-14-font-size);
+            font-weight: var(--font-weight-system-semibold);
+          }
+          margin-bottom: 10px;
+          text-align: left;
+        }
+      }
+      .share--icon {
+        display: flex;
+        justify-content: left;
+        span {
+          display: inline-block;
+          padding: 6px 6px;
+          cursor: pointer;
+          font-size: 24px;
+          &:hover {
+            svg {
+              transform: scale(1.1);
+              filter: grayscale(100%) brightness(50%);
+            }
+          }
+          svg {
+            display: block;
+            margin: auto;
+          }
+        }
+      }
+      .comment--input {
+        border-top: 1px solid var(--color--border);
+        padding-top: 6px;
+        display: flex;
+
+        align-items: center;
+        textarea {
+          width: calc(100% - 50px);
+          max-height: 48px;
+
+          border: none;
+          background-color: transparent;
+          resize: none;
+          &:focus-visible {
+            outline-style: none;
+          }
+          color: var(--color-primary-text);
+        }
+        span {
+          width: 50px;
+          color: #0095f6;
+          cursor: pointer;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+
+          &:hover {
+            color: var(--color-primary-text);
+          }
+        }
+      }
+    }
+  }
+}
