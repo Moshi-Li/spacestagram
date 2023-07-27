@@ -17,15 +17,15 @@ export const fetchExploreContent = createAsyncThunk<
   ImageDetail[],
   number,
   { state: RootState }
->("homeSlice/fetchExploreContent ", async (count = 3) => {
+>("homeSlice/fetchExploreContent ", async (count = 6) => {
   try {
     const response = await Axios.get<ImageDetail[]>(
       "https://li-moshi.com/v1/apod",
-      { params: { count } }
+      { params: { count: count * 1.5 } }
     );
     const data = camelcaseKeys(response.data);
-    data.reverse();
-    return data;
+    const results = data.filter((item) => item.mediaType !== "video");
+    return results.slice(0, count);
   } catch (e) {
     return [];
   }
@@ -35,16 +35,26 @@ export const fetchMoreExploreContent = createAsyncThunk<
   ImageDetail[],
   number,
   { state: RootState }
->("homeSlice/fetchMoreExploreContent", async (count = 3) => {
+>("homeSlice/fetchMoreExploreContent", async (count = 6) => {
   try {
     const response = await Axios.get<ImageDetail[]>(
       "https://li-moshi.com/v1/apod",
-      { params: { count } }
+      { params: { count: count * 1.5 } }
     );
     const data = camelcaseKeys(response.data);
-    data.reverse();
 
-    return data;
+    console.log({
+      count,
+      real: data.filter((item) => {
+        console.log(item.mediaType);
+        if (item.mediaType !== "video") {
+          return true;
+        }
+      }).length,
+    });
+
+    const results = data.filter((item) => item.mediaType !== "video");
+    return results.slice(0, count);
   } catch (e) {
     return [];
   }

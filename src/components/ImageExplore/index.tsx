@@ -23,7 +23,7 @@ const ImageExplore = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchExploreContent(12));
+    dispatch(fetchExploreContent(18));
     const resetOnDeconstruct = () => dispatch(reset());
     return () => {
       resetOnDeconstruct();
@@ -39,7 +39,7 @@ const ImageExplore = () => {
             className="infinite--scroll"
             dataLength={images.length / 3} //This is important field to render the next data
             next={() => {
-              dispatch(fetchMoreExploreContent(6));
+              dispatch(fetchMoreExploreContent(12));
             }}
             hasMore={true}
             loader={
