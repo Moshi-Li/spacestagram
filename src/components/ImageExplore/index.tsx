@@ -12,6 +12,7 @@ import { ExploreStatus } from "../../slices/interface";
 
 import Loading from "../Loader";
 import ImageBlock from "./ImageBlock";
+import Footer from "../Footer";
 
 import "./index.scss";
 
@@ -62,6 +63,7 @@ const ImageExplore = () => {
               }
             })}
           </InfiniteScroll>
+          <Footer></Footer>
         </div>
       )}
       {status === ExploreStatus.Loading && <Loading />}

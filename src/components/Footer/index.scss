@@ -1,0 +1,18 @@
+.footer--container {
+  padding: 16px;
+  p {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: var(--color-primary-text);
+      &:hover {
+        color: var(--color-secondary-text);
+      }
+    }
+  }
+  img {
+    height: 24px;
+  }
+}

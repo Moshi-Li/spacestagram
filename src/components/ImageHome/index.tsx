@@ -5,6 +5,7 @@ import { RootState, useAppSelector, useAppDispatch } from "../../store";
 import { fetchMoreHomeContent } from "../../slices/homeSlice";
 
 import ImageBlock from "./ImageBlock";
+import Footer from "../Footer";
 
 import "./index.scss";
 
@@ -33,6 +34,7 @@ const ImageHome = () => {
           return <ImageBlock key={item.date} imageData={item}></ImageBlock>;
         })}
       </InfiniteScroll>
+      <Footer></Footer>
     </div>
   );
 };
